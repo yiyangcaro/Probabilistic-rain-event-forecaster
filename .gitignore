@@ -205,3 +205,12 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# macOS Finder junk
+.DS_Store
+
+# VS Code / temp artifact
+requirements.txtcode
+
+# Notebook-generated data (don’t version this)
+notebooks/data/
