@@ -1,0 +1,101 @@
+{
+  "checks": [
+    {
+      "message": "Dataset must contain at least one row.",
+      "metrics": {
+        "row_count": 48
+      },
+      "name": "non_empty",
+      "passed": true,
+      "severity": "ERROR"
+    },
+    {
+      "message": "Duplicate (timestamp_utc, location_id) keys found.",
+      "metrics": {
+        "duplicate_count": 0
+      },
+      "name": "unique_key",
+      "passed": true,
+      "severity": "ERROR"
+    },
+    {
+      "message": "Timestamps must fall within [min_ts, min_ts + horizon_hours).",
+      "metrics": {
+        "bad_count": 0,
+        "max_exclusive": "2026-01-26T17:00:00+00:00",
+        "min_ts": "2026-01-24T17:00:00+00:00"
+      },
+      "name": "timestamp_within_horizon",
+      "passed": true,
+      "severity": "ERROR"
+    },
+    {
+      "message": "precip_prob must be within [0.0, 100.0] based on detected scale 0-100.",
+      "metrics": {
+        "bad_count": 0,
+        "max": 96.0,
+        "min": 0.0,
+        "scale": "0-100"
+      },
+      "name": "precip_prob_range",
+      "passed": true,
+      "severity": "ERROR"
+    },
+    {
+      "message": "precip_mm must be >= 0.",
+      "metrics": {
+        "negative_count": 0
+      },
+      "name": "precip_mm_nonnegative",
+      "passed": true,
+      "severity": "ERROR"
+    },
+    {
+      "message": "temp_c outside [-60, 60] indicates possible outliers.",
+      "metrics": {
+        "outlier_count": 0
+      },
+      "name": "temp_reasonable",
+      "passed": true,
+      "severity": "WARN"
+    },
+    {
+      "message": "Missingness for key columns must be <= 1%.",
+      "metrics": {
+        "missing_rates": {
+          "precip_mm": 0.0,
+          "precip_prob": 0.0,
+          "temp_c": 0.0,
+          "timestamp_utc": 0.0
+        },
+        "violations": []
+      },
+      "name": "missingness",
+      "passed": true,
+      "severity": "ERROR"
+    },
+    {
+      "message": "Raw hourly count must equal processed row count.",
+      "metrics": {
+        "processed_count": 48,
+        "raw_count": 48
+      },
+      "name": "reconciliation_count",
+      "passed": true,
+      "severity": "ERROR"
+    }
+  ],
+  "errors_failed": 0,
+  "generated_at_utc": "2026-01-24T18:45:15.584105+00:00",
+  "inputs": {
+    "forecast_hourly": "data/processed/forecast_hourly_2026-01-24.csv"
+  },
+  "outputs": {
+    "exceptions": "reports/exceptions/exceptions_2026-01-24.csv",
+    "validation": "reports/validation/validation_2026-01-24.json"
+  },
+  "row_count": 48,
+  "run_date": "2026-01-24",
+  "status": "pass",
+  "warns_failed": 0
+}

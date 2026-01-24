@@ -87,3 +87,29 @@ Example output:
 Probability of rain tomorrow: 41.08%
 Prediction: no rain
 ```
+
+### Power BI
+
+Generate star schema outputs for a specific run date:
+
+```bash
+PYTHONPATH=src python3 -m rain_alert.cli run --run-date 2026-01-24
+```
+
+Star schema files are written to:
+
+```
+data/star/2026-01-24/
+  fact_forecast_hourly.csv
+  fact_forecast_daily.csv
+  dim_date.csv
+  dim_location.csv
+```
+
+Data quality exceptions for a Power BI "Data Quality" page:
+
+```
+reports/exceptions/exceptions_2026-01-24.csv
+```
+
+For full Power BI setup steps and relationships, see `bi/README.md`.
