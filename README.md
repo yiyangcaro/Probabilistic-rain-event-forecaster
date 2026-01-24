@@ -48,18 +48,56 @@ I deliberately choose the **F1-optimal threshold** for the final classifier, bec
 
 ### How to run
 
-```bash
-git clone https://github.com/<your-username>/Probabilistic-rain-event-forecaster.git
-cd Probabilistic-rain-event-forecaster
+Prerequisites: Python 3 and project dependencies.
 
+Install dependencies with a virtual environment:
+
+```bash
 python3 -m venv .venv
 source .venv/bin/activate      # or .venv\Scripts\activate on Windows
-
 pip install -r requirements.txt
-
-code .                        # open in VS Code
-# In VS Code, open notebooks/01_weather_exploration.ipynb and Run All
 ```
+
+Run the pipeline for a specific date:
+
+A) CLI:
+```bash
+PYTHONPATH=src python3 -m rain_alert.cli run --run-date YYYY-MM-DD
+```
+
+B) Direct function call:
+```bash
+PYTHONPATH=src python3 - <<'PY'
+from rain_alert.config import Settings
+from rain_alert.pipeline import run_pipeline
+
+run_pipeline("YYYY-MM-DD", Settings())
+PY
+```
+
+Outputs and locations:
+- data/raw/forecast_raw_<run-date>.json
+- data/processed/forecast_hourly_<run-date>.csv
+- data/processed/dim_date_<run-date>.csv
+- data/processed/dim_location_<run-date>.csv
+- data/processed/forecast_summary_<run-date>.csv
+- data/star/<run-date>/fact_forecast_hourly.csv
+- data/star/<run-date>/fact_forecast_daily.csv
+- data/star/<run-date>/dim_date.csv
+- data/star/<run-date>/dim_location.csv
+- reports/validation/validation_<run-date>.json
+- reports/exceptions/exceptions_<run-date>.csv
+- reports/runs/run_<run-date>.json
+
+Pass vs fail:
+- pass: no ERROR severity validation checks failed
+- fail: at least one ERROR severity validation check failed; details are in the validation JSON and exceptions CSV
+
+Run report (no BI required):
+```bash
+python3 scripts/make_run_report.py YYYY-MM-DD
+```
+Outputs are written to `reports/run_reports/run_report_<run-date>.md` and `reports/run_reports/run_report_<run-date>.csv`.
 #### Example: predicting rain probability
 
 After running the notebook top-to-bottom (so that the model clf, BEST_T,

@@ -8,3 +8,7 @@ data/raw/
 data/processed/
 data/star/
 reports/
+.DS_Store
+**/.DS_Store
+
+notebooks/data/
